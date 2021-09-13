@@ -16,6 +16,34 @@ myGame.timeSpentPlaying(); //should return 30;
 myGame.myLevel(); //should return "You need to improve your game"
 */
 
-function pingPongTracker () {
-// TO DO
+function pingPongTracker() {
+  // TO DO
+  const newObj = {}
+  newObj.time = 0
+  newObj.playOneGame = () => {
+    newObj.time += 15
+    return 'Game played'
+  }
+  newObj.timeSpentPlaying = () => {
+    return newObj.time
+  }
+  newObj.myLevel = () => {
+    if (newObj.time < 30) return 'I need to improve my game'
+    else if (newObj.time >= 30 && newObj.time <= 100)
+      return 'You need to improve your game'
+    else return 'Wow, I have wasted a lot of time'
+  }
+
+  return newObj
 }
+
+describe('Tests', () => {
+  let myGame = pingPongTracker()
+  
+  it('test pingPongTracker', () => {
+    expect(myGame.playOneGame()).toEqual('Game played')
+    expect(myGame.playOneGame()).toEqual('Game played')
+    expect(myGame.timeSpentPlaying()).toEqual(30)
+    expect(myGame.myLevel()).toEqual('You need to improve your game')
+  })
+})
