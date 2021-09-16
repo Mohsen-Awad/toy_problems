@@ -24,6 +24,46 @@
  *	"())"
  */
 
- function balancedParens(input) {
+function balancedParens(input) {
   //  TO DO
+  const newArr = input.split('')
+  const symbols = ['(', ')', '[', ']', '{', '}']
+  const result = newArr.filter((i) => symbols.includes(i))
+
+  let stack = []
+  let top = ''
+  
+  for (i in result) {
+    if (stack.length == 0) stack.push(result[i])
+    else {
+      top = stack.pop()
+      if (
+        (top === '(' && result[i] === ')') ||
+        (top === '[' && result[i] === ']') ||
+        (top === '{' && result[i] === '}')
+      )
+        continue
+      else {
+        stack.push(top)
+        stack.push(result[i])
+      }
+    }
+  }
+  return stack.length === 0
 }
+
+describe('Tests', () => {
+  it('test balancedParens', () => {
+    expect(balancedParens('(')).toEqual(false)
+    expect(balancedParens('()')).toEqual(true)
+    expect(balancedParens(')(')).toEqual(false)
+    expect(balancedParens('(())')).toEqual(true)
+    expect(balancedParens('[](){}')).toEqual(true)
+    expect(balancedParens('[({})]')).toEqual(true)
+    expect(balancedParens('[(]{)}')).toEqual(false)
+    expect(balancedParens(' var wow  = { yo: thisIsAwesome() }')).toEqual(true)
+    expect(
+      balancedParens(' var hubble = function(() { telescopes.awesome();'),
+    ).toEqual(false)
+  })
+})
