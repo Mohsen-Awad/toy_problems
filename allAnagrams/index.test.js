@@ -10,10 +10,24 @@
  */
 
 /**
-  * example usage:
-  * var anagrams = allAnagrams('abc');
-  * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
-  */
+ * example usage:
+ * var anagrams = allAnagrams('abc');
+ * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
+ */
 
-const allAnagrams = function(string) {
-};
+const allAnagrams = function (str) {
+  const strLength = str.length
+  let arr = {}
+  while (Object.keys(arr).length < Math.pow(strLength, strLength)) {
+    let result = ''
+    for (let i = 0; i < strLength; i++) {
+      result += str.charAt(Math.floor(Math.random() * strLength))
+
+    }
+    arr[result] = result
+  }
+  return arr
+}
+
+let anagrams = allAnagrams('abc')
+console.log(anagrams) // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
