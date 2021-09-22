@@ -12,54 +12,68 @@
  *
  */
 
- function isDeepEquals(obj1, obj2) {
-	// TO DO
+function isDeepEquals(obj1, obj2) {
+  // TO DO
+
+  return obj1 && obj2
+    ? JSON.stringify(obj1) === JSON.stringify(obj2)
+      ? true
+      : false
+    : false
+
+  // if (obj1 == null || obj2 == null) return false
+  // else if (JSON.stringify(obj1) == JSON.stringify(obj2)) return true
+  // else return false
+
+  // if (obj1 == null || obj2 == null) return false
+  // return obj1 === obj2
 }
 
+describe('Tests', () => {
+  const mockObj = {
+    a: 1,
+    b: {
+      c: 3,
+    },
+  }
 
-describe("Tests", () => {
-	const mockObj = {
-		a: 1,
-		b: {
-			c: 3
-		}
-	}
+  it('test isDeepEquals #case1', () => {
+    const result = isDeepEquals(null, {})
+    expect(result).toEqual(false)
+  })
 
-	it("test isDeepEquals #case1", () => {
-		const result = isDeepEquals(null, {})
-		expect(result).toEqual(false)
-	})
+  it('test isDeepEquals #case2', () => {
+    const result = isDeepEquals()
+    expect(result).toEqual(false)
+  })
 
-	it("test isDeepEquals #case2", () => {
-		const result = isDeepEquals()
-		expect(result).toEqual(false)
-	})
+  it('test isDeepEquals #case3', () => {
+    const result = isDeepEquals(mockObj, mockObj)
+    expect(result).toEqual(true)
+  })
 
-	it("test isDeepEquals #case3", () => {
-		const result = isDeepEquals(mockObj, mockObj)
-		expect(result).toEqual(true)
-	})
+  it('test isDeepEquals #case4', () => {
+    const result = isDeepEquals(null, null)
+    expect(result).toEqual(false)
+  })
 
-	it("test isDeepEquals #case4", () => {
-		const result = isDeepEquals(null, null)
-		expect(result).toEqual(false)
-	})
+  it('test isDeepEquals #case5', () => {
+    const result = isDeepEquals(mockObj, {
+      ...mockObj,
+      b: {
+        c: '3',
+      },
+    })
+    expect(result).toEqual(false)
+  })
 
-	it("test isDeepEquals #case5", () => {
-		const result = isDeepEquals(mockObj, { ...mockObj,
-			b: {
-				c: '3'
-			}
-		})
-		expect(result).toEqual(false)
-	})
-
-	it("test isDeepEquals #case6", () => {
-		const result = isDeepEquals(mockObj, { ...mockObj,
-			b: {
-				c: 6
-			}
-		})
-		expect(result).toEqual(false)
-	})
+  it('test isDeepEquals #case6', () => {
+    const result = isDeepEquals(mockObj, {
+      ...mockObj,
+      b: {
+        c: 6,
+      },
+    })
+    expect(result).toEqual(false)
+  })
 })
