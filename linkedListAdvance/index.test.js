@@ -85,4 +85,4 @@ describe('Tests', () => {
   })
 })
 
-//write methods here!
+// write methods here!
