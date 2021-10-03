@@ -12,4 +12,18 @@
 
 const commonCharacters = (str1, str2) => {
   // TODO
-};
+  let z = {}
+  for (i in str1) {
+    if (str2.includes(str1[i])) z[str1[i]] = str1[i]
+  }
+  return Object.keys(z).join('')
+}
+
+describe('Tests', () => {
+  it('test commonCharacters', () => {
+    expect(commonCharacters('acexivou', 'aegihobu')).toEqual('aeiou')
+    expect(commonCharacters('abc', 'xyz')).toEqual('')
+    expect(commonCharacters('abc', 'abcabc')).toEqual('abc')
+    expect(commonCharacters('cba', 'abc')).toEqual('cba')
+  })
+})
