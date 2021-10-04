@@ -9,4 +9,24 @@
 
 const bitCounting = (num) => {
   // TODO
-};
+  let binaryNum = ''
+  let count = 0
+  while (num >= 1) {
+    if (num % 2 === 0) binaryNum = 0 + binaryNum
+    else {
+      binaryNum = 1 + binaryNum
+      count++
+    }
+
+    num = Math.floor(num / 2)
+  }
+  return count
+}
+
+describe('Tests', () => {
+  it('bitCounting', () => {
+    expect(bitCounting(1234)).toEqual(5)
+    expect(bitCounting(15)).toEqual(4)
+    expect(bitCounting(8)).toEqual(1)
+  })
+})
