@@ -23,3 +23,58 @@ var solvedBoard = [[0,1,1],
                    [2,1,2]];
 ticTacToe(solvedBoard);//should return 1
 */
+
+hasZero = (arr) => {
+  for (i = 0; i < arr.length; i++)
+    for (j = 0; j < arr[i].length; j++) if (arr[i][j] === 0) return true
+  return false
+}
+
+allEqual = (arr) => {
+  return new Set(arr).size == 1
+}
+
+ticTacToe = (board) => {
+  for (i = 0; i < board.length; i++) {
+    if (allEqual(board[i])) return board[i][0]
+
+    if (allEqual([board[0][i], board[1][i], board[2][i]])) return board[0][i]
+  }
+
+  if (allEqual([board[0][0], board[1][1], board[2][2]])) return board[0][0]
+
+  if (allEqual([board[0][2], board[1][1], board[2][0]])) return board[0][2]
+
+  if (hasZero(board)) return -1
+
+  return 0
+}
+
+let board1 = [
+  [0, 0, 1],
+  [0, 1, 2],
+  [2, 1, 0],
+]
+
+let board2 = [
+  [0, 1, 1],
+  [0, 1, 2],
+  [2, 1, 2],
+]
+
+let board3 = [
+  [0, 1, 2],
+  [0, 2, 1],
+  [2, 1, 2],
+]
+
+let board4 = [
+  [1, 2, 2],
+  [2, 1, 1],
+  [1, 1, 2],
+]
+
+console.log('result1', ticTacToe(board1))
+console.log('result2', ticTacToe(board2))
+console.log('result3', ticTacToe(board3))
+console.log('result4', ticTacToe(board4))
