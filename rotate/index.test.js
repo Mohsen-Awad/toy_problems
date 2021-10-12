@@ -24,6 +24,62 @@ rotate(data, 11)    // => [5, 1, 2, 3, 4]
 rotate(data, 12478) // => [3, 4, 5, 1, 2]
 */
 
-const rotate = function(array, steps) {
+/**
+ *
+ * @param {array} arr array of numbers
+ * @param {number} steps number of steps
+ * @returns {array} return an array after apply the rotate
+ */
+const rotate = function (arr, steps) {
+  array = [...arr]
+  steps = steps % arr.length
+  if (steps < 0) {
+    for (i = steps; i < 0; i++) array.push(array.shift())
 
-};
+    return array
+  } else {
+    for (i = 0; i < steps; i++) array.unshift(array.pop())
+
+    return array
+  }
+}
+
+const data = [1, 2, 3, 4, 5]
+
+describe('test', () => {
+  it('Rotate function 1', () => {
+    expect(rotate(data, 1)).toEqual([5, 1, 2, 3, 4])
+  })
+
+  it('Rotate function 2', () => {
+    expect(rotate(data, 2)).toEqual([4, 5, 1, 2, 3])
+  })
+
+  it('Rotate function 5', () => {
+    expect(rotate(data, 5)).toEqual([1, 2, 3, 4, 5])
+  })
+
+  it('Rotate function -1', () => {
+    expect(rotate(data, -1)).toEqual([2, 3, 4, 5, 1])
+  })
+
+  it('Rotate function -2', () => {
+    expect(rotate(data, -2)).toEqual([3, 4, 5, 1, 2])
+  })
+
+  it('Rotate function -5', () => {
+    expect(rotate(data, -5)).toEqual([1, 2, 3, 4, 5])
+  })
+
+  it('Rotate function 7', () => {
+    expect(rotate(data, 7)).toEqual([4, 5, 1, 2, 3])
+  })
+
+  it('Rotate function 11', () => {
+    expect(rotate(data, 11)).toEqual([5, 1, 2, 3, 4])
+  })
+
+  it('Rotate function 3', () => {
+    expect(rotate(data, 3)).toEqual([3, 4, 5, 1, 2])
+  })
+})
