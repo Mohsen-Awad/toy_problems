@@ -8,10 +8,19 @@ of calling the callback function.
 See example usage to understand what arguments are passed to the callback.
 */
 
-Array.prototype.map = function(callback) {
+Array.prototype.map = function (callback) {
+  let newArray = []
+  for (i = 0; i < this.length; i++) {
+    newArray[i] = callback(this[i], i, this)
+  }
+  return newArray
+}
 
-};
+var transform = function (element, index, array) {
+  return array[index] + index + element
+}
 
+console.log(['a', 'b', 'c'].map(transform))
 /*
 Example usage:
 var transform = function(element,index,array){
@@ -19,7 +28,6 @@ var transform = function(element,index,array){
 };
 ["a","b","c"].map(transform); //should return ['a0a','b1b','c2c'];
 */
-
 
 /*
 Problem 2:
@@ -31,28 +39,32 @@ with the error message - a simple string that says "Incorrect argument(s)".
 Please see example usage to understand what should be passed to the callback.
 */
 
-const asyncSum = function(a, b, callback) {
-
-};
+const asyncSum = async function (a, b, callback) {
+  if (typeof a == 'number' && typeof b == 'number')
+    await setTimeout(callback(null, a + b), 1000)
+  else await setTimeout(callback('Incorrect argument(s)'), 1000)
+}
 
 /*
 Example use:
 */
 
-const logNumber = function(error, number) {
+const logNumber = function (error, number) {
   if (error) {
-    console.log('Error: ', error);
+    console.log('Error: ', error)
   } else {
-    console.log('The total is: ', number);
+    console.log('The total is: ', number)
   }
-};
+}
+
+asyncSum(10, 7, logNumber)
+asyncSum(10, 'B', logNumber)
 
 /*
 asyncSum(10,7,logNumber);//should print "The total is: 17" after 1 second
 asyncSum(10,"B",logNumber);
 //should print "Error: Incorrect argument(s)" after 1 second
 */
-
 
 /*
 Problem 3 (ADVANCED):
